@@ -11,6 +11,9 @@ name: publish-ghcr
 ## (from atlas) commented out scheduled run, only need to run when changes get pushed.
 ## 
 
+## each time copy this file to new repo... have some step that i keep forgetting to get workflow to trigger... 
+## was it manually edit the file after action file deposited?
+
 on:
   #schedule:
   #  - cron: '38 7 * * *'
