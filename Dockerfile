@@ -69,7 +69,7 @@ RUN echo  ''  ;\
     cd /     ;\
     echo ""  ;\
     echo '==================================================================' ;\
-    echo '==== install beagle gpu lib ===================== SKIP ===========' ;\
+    echo '==== building .... compiling .... using nvcc ...       ===========' ;\
     echo '==================================================================' ;\
     echo " calling external shell script..." | tee -a _TOP_DIR_OF_CONTAINER_  ;\
     date | tee -a      _TOP_DIR_OF_CONTAINER_                                 ;\
