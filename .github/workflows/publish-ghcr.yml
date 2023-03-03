@@ -15,8 +15,10 @@ name: publish-ghcr
 ## was it manually edit the file after action file deposited?
 
 on:
-  #schedule:
-  #  - cron: '38 7 * * *'
+  schedule:
+    - cron: '38 7 * * *'
+    - cron: '10 14 * * *'
+    - cron: '10 22 * * *' ## GMT is +8
   push:
     ##branches: [ main ]
     branches: [ main, 'v*', 'v*.*.*', 'r*.*.*', 'tool*' ]
