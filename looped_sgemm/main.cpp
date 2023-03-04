@@ -9,8 +9,9 @@ void fill_vector_with_uniform_random_floats(float *v, int dim);
 
 int main() {
   //float memory_usage_in_GB = 1.5;
-  float memory_usage_in_GB = 24;
-  float minutes_to_run = 0.5;
+  float memory_usage_in_GB = 24;    // A10, get to 100% util, 151W (out of 150 sustainable)
+  //float minutes_to_run = 0.5;
+  float minutes_to_run = 70;		// run for a tad over an hour
 
   int dim = floor(sqrt(1000000000*memory_usage_in_GB/12));
 

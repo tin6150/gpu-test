@@ -6,6 +6,18 @@ attempt to get binary to run gpu burn in and power load test on the greta gpu no
 
 ~~~~~
 
+docker pull ghcr.io/tin6150/gpu-test:main
+docker run -it --entrypoint=/bin/bash     ghcr.io/tin6150/gpu-test:main
+docker tag  ghcr.io/tin6150/gpu-test:main registry.greta.local:443/gpu-test:v24Gb  # use 24GB of GPU memory
+docker image push                         registry.greta.local:443/gpu-test:v24Gb  
+
+docker run --gpus all -it --entrypoint=/bin/bash  registry.greta.local:443/gpu-test:v24Gb  
+docker run --gpus all -it --entrypoint=/bin/bash  registry.greta.local:443/gpu-test:v24G_70min
+docker run --gpus all -it --entrypoint=/opt/gitrepo/container/looped_sgemm/looped_sgemm.x  registry.greta.local:443/gpu-test:v24G_70min
+
+
+~~~~~
+
 Gustav
   9:58 AM
 https://gitlab.com/gustav.r.jansen/cuda-examples/-/tree/main/looped_sgemm
@@ -57,6 +69,3 @@ yes
 
 ~~~~~
 
-docker pull ghcr.io/tin6150/gpu-test:main
-docker run -it --entrypoint=/bin/bash     ghcr.io/tin6150/gpu-test:main
-docker tag  ghcr.io/tin6150/gpu-test:main registry.greta.local:443/gpu-test:v1
