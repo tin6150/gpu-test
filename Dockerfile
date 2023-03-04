@@ -76,7 +76,7 @@ RUN echo  ''  ;\
     cd /    ;\
     echo ""
 
-ENV DBG_CONTAINER_VER  "Dockerfile 2023.0303 v24G_70min"
+ENV DBG_CONTAINER_VER  "Dockerfile 2023.0303 v24G_70min_quiet"
 ENV DBG_DOCKERFILE Dockerfile
 
 
