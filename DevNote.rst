@@ -2,7 +2,11 @@
 This is containerization of GJ's cuda-example at
 https://gitlab.com/gustav.r.jansen/cuda-examples
 
-attempt to get binary to run gpu burn in and power load test on the greta gpu nodes.
+Container with binary to run gpu burn in and power load test on the greta gpu nodes.
+node does not have nvcc, so use cloud container build to compile program
+and run as docker binary.
+
+(why did this repo get created with master branch?  rename to main needed quite a few steps!)
 
 ~~~~~
 
@@ -14,6 +18,10 @@ docker image push                         registry.greta.local:443/gpu-test:v24G
 docker run --gpus all -it --entrypoint=/bin/bash  registry.greta.local:443/gpu-test:v24Gb  
 docker run --gpus all -it --entrypoint=/bin/bash  registry.greta.local:443/gpu-test:v24G_70min
 docker run --gpus all -it --entrypoint=/opt/gitrepo/container/looped_sgemm/looped_sgemm.x  registry.greta.local:443/gpu-test:v24G_70min
+
+## need to run 2 copies in parallel to load both GPU.
+pdsh -w pxe-c00.greta.local docker run --gpus all -it --entrypoint=/opt/gitrepo/container/looped_sgemm/looped_sgemm.x  registry.greta.local:443/gpu-test:v24G_70min &
+pdsh -w pxe-c00.greta.local docker run --gpus all -it --entrypoint=/opt/gitrepo/container/looped_sgemm/looped_sgemm.x  registry.greta.local:443/gpu-test:v24G_70min &
 
 
 ~~~~~
