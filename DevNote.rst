@@ -56,3 +56,6 @@ yes
 
 
 ~~~~~
+
+docker pull ghcr.io/tin6150/gpu-test:ma
+docker tag  ghcr.io/tin6150/gpu-test:main registry.greta.local:443/gpu-test:v1
