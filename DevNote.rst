@@ -14,24 +14,29 @@ and run as docker binary.
 
 	docker pull ghcr.io/tin6150/gpu-test:main
 	docker run -it --entrypoint=/bin/bash     ghcr.io/tin6150/gpu-test:main
+
 	docker tag  ghcr.io/tin6150/gpu-test:main registry.greta.local:443/gpu-test:v24Gb       # use 24GB of GPU memory
 	docker tag  ghcr.io/tin6150/gpu-test:main registry.greta.local:443/gpu-test:v24G_70min  # use 24GB of GPU memory and run for 70 minutes
 	docker tag  ghcr.io/tin6150/gpu-test:main registry.greta.local:443/gpu-test:v24G_70min_quiet  # no elapsed time printf , power at 60W + 8W
-	docker tag  ghcr.io/tin6150/gpu-test:main registry.greta.local:443/gpu-test:v20G_70min_quiet  # 
-	docker image push                         registry.greta.local:443/gpu-test:v24G_70min_quiet
+	docker tag  ghcr.io/tin6150/gpu-test:main registry.greta.local:443/gpu-test:v20G_70min_quiet  # load ~150W, but need to ssh in interactive run -it 
+	docker tag  ghcr.io/tin6150/gpu-test:main registry.greta.local:443/gpu-test:v20G_70min_mute  # no printf at all... 
+
+
+	docker image push                         registry.greta.local:443/gpu-test:v20G_70min_mute	
 
 	docker run --gpus all -it --rm --entrypoint=/bin/bash  registry.greta.local:443/gpu-test:v24Gb  
-	docker run --gpus 0 -it --rm --entrypoint=/usr/bin/nvidia-smi  registry.greta.local:443/gpu-test:v24Gb  
-	docker run --gpus 1 -it --rm --entrypoint=/bin/bash  registry.greta.local:443/gpu-test:v24Gb  
-	docker run --gpus 2 -it --rm --entrypoint=/bin/bash  registry.greta.local:443/gpu-test:v24Gb  
+	docker run --gpus 0   -it --rm --entrypoint=/usr/bin/nvidia-smi  registry.greta.local:443/gpu-test:v24Gb  
 	docker run --gpus all -it --rm --entrypoint=/bin/bash  registry.greta.local:443/gpu-test:v24G_70min_quiet
-	docker run --gpus all -it --rm --entrypoint=/opt/gitrepo/container/looped_sgemm/looped_sgemm.x  registry.greta.local:443/gpu-test:v24G_70min_quiet
 
-	docker run --gpus all -it --rm -e CUDA_VISIBLE_DEVICES=1 --entrypoint=/opt/gitrepo/container/looped_sgemm/looped_sgemm.x  registry.greta.local:443/gpu-test:v24G_70min_quiet
+	docker run --gpus all -it --rm -e CUDA_VISIBLE_DEVICES=1 --entrypoint=/opt/gitrepo/container/looped_sgemm/looped_sgemm.x  registry.greta.local:443/gpu-test:v20G_70min_quiet
 
 	## need to run 2 copies in parallel to load both GPU.
-	pdsh -w pxe-c00.greta.local docker run --gpus all --rm --entrypoint=/opt/gitrepo/container/looped_sgemm/looped_sgemm.x  registry.greta.local:443/gpu-test:v24G_70min &
-	pdsh -w pxe-c00.greta.local docker run --gpus all --rm --entrypoint=/opt/gitrepo/container/looped_sgemm/looped_sgemm.x  registry.greta.local:443/gpu-test:v24G_70min &
+	pdsh -w pxe-c00.greta.local docker run --gpus all --rm  -e CUDA_VISIBLE_DEVICES=0 --entrypoint=/opt/gitrepo/container/looped_sgemm/looped_sgemm.x  registry.greta.local:443/gpu-test:v24G_70min_mute
+
+
+~~~~~
+
+::
 
 	##>>## this version or method not getting high util, only 57W
 

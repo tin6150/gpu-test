@@ -28,13 +28,13 @@ int main() {
   float alpha = 1, beta = 0;
   clock_t start = clock();
 
-  printf ("Starting... Elapsed (minutes): %f\n", ((float)(clock() - start))/CLOCKS_PER_SEC/60);
+  //printf ("Starting... Elapsed (minutes): %f\n", ((float)(clock() - start))/CLOCKS_PER_SEC/60);
   while ( ((float)(clock() - start))/CLOCKS_PER_SEC/60 < minutes_to_run) {
     cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, dim, dim, dim, &alpha, d_A, dim, d_B, dim, &beta, d_C, dim);
     cudaDeviceSynchronize();
     //printf ("Elapsed (minutes): %f\n", ((float)(clock() - start))/CLOCKS_PER_SEC/60);
   }
-  printf ("done... Elapsed (minutes): %f\n", ((float)(clock() - start))/CLOCKS_PER_SEC/60);
+  //printf ("done... Elapsed (minutes): %f\n", ((float)(clock() - start))/CLOCKS_PER_SEC/60);
 	//^^tin
   cublasDestroy(handle);
 
